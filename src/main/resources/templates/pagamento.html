@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pagamento</title>
+</head>
+<body>
+    <h1>Inserisci la info carta di credito per pagamento</h1>
+    <form id="form">
+        <label for="PAN">PAN:</label>
+        <input type="text" id="PAN" name="PAN" /><br/>
+        
+        <label for="DATA_SCADENZA">DATA SCADENZA (MM/YY):</label>
+        <input type="text" id="DATA_SCADENZA" name="DATA_SCADENZA" /><br/>
+        
+        <label for="CCV">CCV:</label>
+        <input type="text" id="CCV" name="CCV" /><br/>
+        
+        <div class="confermaPagamento" id="confermaPagamento"></div>
+        <input type="button" id="submitBtn" value="Paga"/>
+    </form>
+
+    <script>
+
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            document.getElementById('confermaPagamento').innerHTML = "Pagamento andato a buon fine. L'ordine sarà messo in <b>IN_LAVORAZIONE</b>";
+
+            fetch(`/api/ordine/impostaLavorazione/{ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+     
+                body: ""
+            })
+            .catch(error => console.error('Errore:', error));
+        });
+    </script>
+</body>
+</html>

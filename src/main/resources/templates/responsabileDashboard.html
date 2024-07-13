@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard responsabile</title>
+</head>
+<body>
+    <header>
+        <h1>Dashboard del Responsabile ID: <span style="font-weight:bold" th:text="${idResponsabile}"></span></h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+    <main th:with="metricaTempo=' Secondi'">        
+        <h2 style="background-color: coral;">DATI CUOCHI</h2>
+        <h2>Tempi medi di preparazione</h2>
+        <p><span th:text="${TmedioPreparazione + metricaTempo}"></span></p>
+        
+        <h2>Tempi medi di preparazione per cuoco</h2>
+        <ul>
+            <li th:each="TmedioCuoco : ${TmedioPreparazioneCuoco}">
+                <div>
+                    <p>ID Cuoco: <span th:text="${TmedioCuoco.key}"></span></p>
+                    <p>Tempo medio preparazione ordine: <span th:text="${TmedioCuoco.value + metricaTempo}"></span></p>
+                </div>
+            </li>
+        </ul>
+        
+        <h2 style="background-color:cornflowerblue;">DATI ADDETTI CONSEGNA</h2>
+		<h2>Tempi medi di consegna</h2>
+		<span th:text="${TmedioConsegnaBanco + metricaTempo}"></span>
+        
+        <h2>Tempi medi di consegna per addetto consegna</h2>
+        <ul>
+            <li th:each="TmedioAddetto : ${TmedioConsegnaAddettoConsegna}">
+                <div>
+                    <p>ID Addetto: <span th:text="${TmedioAddetto.key}"></span></p>
+                    <p>Tempo medio consegna ordine: <span th:text="${TmedioAddetto.value + metricaTempo}"></span></p>
+                </div>
+            </li>
+        </ul>
+		
+		<h2 style="background-color:brown;">DATI CORRIERI</h2>
+			<h2>Tempi medi di consegna</h2>
+			<span th:text="${TmedioConsegnaDomicilio + metricaTempo}"></span>
+	        
+	        <h2>Tempi medi di consegna per corriere</h2>
+	        <ul>
+	            <li th:each="TmedioCorriere : ${TmedioConsegnaCorriere}">
+	                <div>
+	                    <p>ID Addetto: <span th:text="${TmedioCorriere.key}"></span></p>
+	                    <p>Tempo medio consegna ordine: <span th:text="${TmedioCorriere.value + metricaTempo}"></span></p>
+	                </div>
+	            </li>
+	        </ul>
+        
+        <h2 style="background-color: gray;">ALTRI TEMPI</h2>
+        <h2>Tempo medio attesa cliente</h2>
+        <span th:text="${TmedioAttesa + metricaTempo}"></span>
+    </main>
+</body>
+</html>

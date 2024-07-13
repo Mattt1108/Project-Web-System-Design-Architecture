@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard addetto consegna</title>
+</head>
+<body>
+    <header>
+        <h1>Dashboard addetto consegna ID: <span style="font-weight:bold" th:text="${idAddettoConsegna}"></span></h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+    <main>
+        
+            <h2>Ordini al banco</h2>
+            <ul>
+                <li th:each="ordine : ${ordini_AL_BANCO}">
+                    <div>
+						<p>ID: <span th:text="${ordine.id}"></span></p>
+                        <p>Panino: <span th:text="${ordine.panino}"></span></p>
+                        <p>Contorno: <span th:text="${ordine.contorno}"></span></p>
+                        <p>Bibita: <span th:text="${ordine.bibita}"></span></p>
+                        <p>Extra: <span th:text="${ordine.extra}"></span></p>
+						<p>timestamp "da lavorare": <span th:text="${ordine.timestamp_AL_BANCO}"></span></p>
+                    </div>
+                    <form th:action="@{/addettoConsegna/completa-ordine}" method="post">
+                        <input type="hidden" name="ordineId" th:value="${ordine.id}">
+						<input type="hidden" name="idAddettoConsegna" th:value="${idAddettoConsegna}">
+                        <button type="submit">Segna consegnato</button>
+                    </form>
+                </li>
+            </ul>
+    </main>
+</body>
+</html>

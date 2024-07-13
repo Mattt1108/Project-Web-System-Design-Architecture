@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard del Cuoco</title>
+</head>
+<body>
+    <header>
+        <h1>Dashboard del Cuoco ID: <span style="font-weight:bold" th:text="${idCuoco}"></span></h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+    <main>
+        
+            <h2>Ordini da Lavorare</h2>
+            <ul>
+                <li th:each="ordine : ${ordini_DA_LAVORARE}">
+                    <div>
+						<p>ID: <span th:text="${ordine.id}"></span></p>
+                        <p>Panino: <span th:text="${ordine.panino}"></span></p>
+                        <p>Contorno: <span th:text="${ordine.contorno}"></span></p>
+                        <p>Bibita: <span th:text="${ordine.bibita}"></span></p>
+                        <p>Extra: <span th:text="${ordine.extra}"></span></p>
+						<p>timestamp "da lavorare": <span th:text="${ordine.timestamp_DA_LAVORARE}"></span></p>
+                    </div>
+                    <form th:action="@{/cuoco/inizia-lavorazione}" method="post">
+                        <input type="hidden" name="ordineId" th:value="${ordine.id}">
+						<input type="hidden" name="idCuoco" th:value="${idCuoco}">
+                        <button type="submit">Inizia Lavorazione</button>
+                    </form>
+                </li>
+            </ul>
+     
+        
+        <section>
+            <h2>Ordini in Lavorazione</h2>
+            <ul>
+                <li th:each="ordine : ${ordini_IN_LAVORAZIONE}">
+                    <div>
+                        <p>ID: <span th:text="${ordine.id}"></span></p>
+                        <p>Panino: <span th:text="${ordine.panino}"></span></p>
+                        <p>Contorno: <span th:text="${ordine.contorno}"></span></p>
+                        <p>Bibita: <span th:text="${ordine.bibita}"></span></p>
+                        <p>Extra: <span th:text="${ordine.extra}"></span></p>
+						<p>timestamp "in lavorazione": <span th:text="${ordine.timestamp_IN_LAVORAZIONE}"></span></p>						
+						
+                    </div>
+                    <form th:action="@{/cuoco/completa-banco}" method="post">
+                        <input type="hidden" name="ordineId" th:value="${ordine.id}">
+                        <button type="submit">Completa Ordine</button>
+                    </form>
+                </li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

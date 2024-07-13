@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resoconto Cliente Registrato</title>
+</head>
+<body>
+    <h2>Resoconto del tuo Ordine</h2>
+    <div>
+        <p>ID Ordine: <span th:text="${ordine.id}"></span></p>
+        <p>Panino: <span th:text="${ordine.panino}"></span></p>
+        <p>Contorno: <span th:text="${ordine.contorno}"></span></p>
+        <p>Bibita: <span th:text="${ordine.bibita}"></span></p>
+        <p>Extra: <span th:text="${ordine.extra}"></span></p>
+		<p>Totale pagato: <span th:text="${ordine.costoTotale}+'€'"></span></p>
+        <p>Stato: <span th:text="${ordine.stato}"></span></p>
+        <p>Codice Ritiro da fornire al corriere: <span th:text="${ordine.codiceRitiro}"></span></p>
+        <p>Il tuo id cliente: <span th:text="${ordine.idCliente}"></span></p>
+    </div>
+    <div>
+        <button onclick="window.location.href='/ordine/clienteRegistrato/componiOrdine'">Ordina altro</button>
+    </div>
+</body>
+</html>

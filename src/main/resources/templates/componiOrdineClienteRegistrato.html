@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Componi il tuo ordine</title>
+</head>
+<body>
+	<form th:action="@{/logout}" method="post">
+		<button type="submit">Logout</button>
+	</form>
+    <h1>Componi il tuo ordine</h1>
+	
+	
+	<form th:action="@{/ordine/clienteRegistrato/submitComponiOrdine}" th:object="${ordine}" method="post">
+	        <label for="panino">Panino:</label>			
+				<select id="panino" th:field="*{panino}">
+					<option 
+						th:each="panino : ${panini}" 
+						th:value="${panino.nome}" 
+						th:text="${panino.nome}+ '    |  Prezzo: '+${panino.prezzo}+'€'">
+					</option>
+				</select>
+			<br>
+	        <label for="contorno">Contorno:</label>
+				<select id="contorno" th:field="*{contorno}">
+					<option 
+						th:each="contorno : ${contorni}" 
+						th:value="${contorno.nome}" 
+						th:text="${contorno.nome}+ '    |  Prezzo: '+${contorno.prezzo}+'€'">
+					</option>
+				</select>
+			<br>
+	        <label for="bibita">Bibita:</label>
+				<select id="bibita" th:field="*{bibita}">
+					<option 
+						th:each="bibita : ${bibite}" 
+						th:value="${bibita.nome}" 
+						th:text="${bibita.nome}+ '    |  Prezzo: '+${bibita.prezzo}+'€'">
+					</option>
+				</select>	
+			<br>
+			<label for="extra">Extra:</label>
+			<input type="text" id="extra" th:field="*{extra}"/><br/>
+	        
+			<input type="hidden" th:field="*{idCliente}" th:value="${cliente.getId}" />
+			<input type="hidden" th:field="*{indirizzo}" th:value="${cliente.getIndirizzo}" />
+			<input type="hidden" th:field="*{recapito}" th:value="${cliente.getRecapito}" />
+			<br>
+			<br>
+			<label for="extra">Numero carta di credito: </label>
+			<input type="text" id="PAN" name="PAN" value="5555xxxxyyyyzzzz" /><br/>
+			<label for="extra">scadenza: </label>
+			<input type="text" id="SCADENZA" name="SCADENZA" value="xx/yy" /><br/>
+			<label for="extra">CCV: </label>
+			<input type="text" id="CCV" name="CCV" value="xyz" /><br/>
+	        <button type="submit">Invia Ordine</button>
+	    </form>
+</body>
+</html>

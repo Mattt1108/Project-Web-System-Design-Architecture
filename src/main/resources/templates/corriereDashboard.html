@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard corriere</title>
+</head>
+<body>
+    <header>
+        <h1>Dashboard corriere ID: <span style="font-weight:bold" th:text="${idCorriere}"></span></h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+    <main>
+        
+            <h2>Ordini da consegnare </h2>
+            <ul>
+                <li th:each="ordine : ${ordini_CONSEGNA}">
+                    <div>
+						<p>ID: <span th:text="${ordine.id}"></span></p>
+                        <p>Panino: <span th:text="${ordine.panino}"></span></p>
+                        <p>Contorno: <span th:text="${ordine.contorno}"></span></p>
+                        <p>Bibita: <span th:text="${ordine.bibita}"></span></p>
+                        <p>Extra: <span th:text="${ordine.extra}"></span></p>
+						<p>timestamp "da consegnare": <span th:text="${ordine.timestamp_CONSEGNA}"></span></p>
+                    	<p style="background-color:crimson ;">Informazioni consegna</p>
+						<p>ID cliente: <span th:text="${ordine.idCliente}"></span></p>
+						<p>Indirizzo consegna : <span th:text="${ordine.indirizzo}"></span></p>
+						<p>Numero di telefono: <span th:text="${ordine.recapito}"></span></p>
+					</div>
+                    <form th:action="@{/corriere/completa-ordine}" method="post">
+                        <input type="hidden" name="ordineId" th:value="${ordine.id}">
+						<input type="hidden" name="idCorriere" th:value="${idCorriere}">
+                        <button type="submit">Segna consegnato</button>
+                    </form>
+                </li>
+            </ul>
+    </main>
+</body>
+</html>

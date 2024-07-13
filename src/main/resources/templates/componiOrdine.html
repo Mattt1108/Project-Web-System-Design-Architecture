@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Componi il tuo ordine</title>
+</head>
+<body>
+    <h1>Componi il tuo ordine</h1>
+    <form id="form">
+        <label for="panino">Panino:</label>
+        <select id="panino" name="panino">
+            <option th:each="panino : ${panini}" th:value="${panino.nome}" th:text="${panino.nome} + '    |  Prezzo: '+${panino.prezzo}+'€'"></option>
+        </select><br/>
+        
+        <label for="contorno">Contorno:</label>
+        <select id="contorno" name="contorno">
+            <option th:each="contorno : ${contorni}" th:value="${contorno.nome}" th:text="${contorno.nome} + '    |  Prezzo: '+${contorno.prezzo}+'€'"></option>
+        </select><br/>
+        
+        <label for="bibita">Bibita:</label>
+        <select id="bibita" name="bibita">
+            <option th:each="bibita : ${bibite}" th:value="${bibita.nome}" th:text="${bibita.nome} + '    |  Prezzo: '+${bibita.prezzo}+'€'"></option>
+        </select><br/>
+        
+		<label for="extra">Extra:</label>
+		<input type="text" id="extra" name="extra" value="NoExtra" /><br/>
+        <br>
+		<br>
+		<label for="extra">Numero carta di credito: </label>
+		<input type="text" id="PAN" name="PAN" value="5555xxxxyyyyzzzz" /><br/>
+		<label for="extra">scadenza: </label>
+		<input type="text" id="SCADENZA" name="SCADENZA" value="xx/yy" /><br/>
+		<label for="extra">CCV: </label>
+		<input type="text" id="CCV" name="CCV" value="xyz" /><br/>
+		
+        <input type="button" id="submitBtn" value="Invia Ordine"/>
+    </form>
+	<br>
+	<div id="costoTotale"></div>
+	<h3 id="msg"></h3>
+    <h2 id="codiceRitiro"></h2>
+	
+	
+	
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const formData = {
+                panino: document.getElementById('panino').value,
+                contorno: document.getElementById('contorno').value,
+                bibita: document.getElementById('bibita').value,
+                extra: document.getElementById('extra').value
+            };
+
+            fetch('/api/ordine/creaOrdine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(ordine => {
+                const codiceRitiro = ordine.codiceRitiro;
+				const costoTotale = ordine.costoTotale;
+                document.getElementById('codiceRitiro').innerHTML = "Il tuo codice ritiro è: " + codiceRitiro;  
+				document.getElementById('msg').innerHTML = "Pagamento effettuato con successo!";  
+				document.getElementById('costoTotale').innerHTML = "Costo totale ordine: " + costoTotale+"€";       
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

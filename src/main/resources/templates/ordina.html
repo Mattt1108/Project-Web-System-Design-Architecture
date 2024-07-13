@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ordina</title>
+</head>
+<body>
+    <h1>Accedi e ordina a domicilio</h1>
+    <form th:action="@{/ordine/clienteRegistrato/componiOrdine}" method="get">
+        <button type="submit">Vai</button>
+    </form>
+    <h1>Ordina al locale senza accesso</h1>
+    <form th:action="@{/ordine/componiOrdine}" method="get">
+        <button type="submit">Vai</button>
+    </form>
+</body>
+</html>
