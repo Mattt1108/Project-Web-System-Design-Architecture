@@ -31,7 +31,7 @@ Questo progetto è stato sviluppato come parte del corso "Web Systems Design and
 - **Login:** Accesso tramite login.
 - **Gestione Ordini:** Accesso alla pagina degli ordini per fare ordini e richiedere la consegna a domicilio. Gli ordini passano allo stato "domicilio" dopo la preparazione.
 
-### Fattorino
+### Corriere
 - **Login:** Accesso tramite login.
 - **Gestione Consegne:** Pagina per richiedere ordini da consegnare a domicilio, confermare la presa in carico (stato "in consegna") e marcare l'ordine come "consegnato".
 
